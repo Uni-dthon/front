@@ -7,12 +7,14 @@ import dayBasic from './images/dayBasic.svg';
 import dayTomato from './images/dayTomato.svg';
 import cloud from './images/cloud.svg';
 import ExtendList from './ExtendList';
+import Reminder from './components/Reminder.jsx';
 import BottomNav from "./BottomNav.jsx";
 import axios from "axios";
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [itemSelect, setItemSelect] = useState(null);
+  const [itemReminder, setItemReminder] = useState([]);
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   
@@ -36,6 +38,7 @@ export default function CalendarPage() {
         }, {});
   
         setData(groupedData); // 상태에 저장
+        setItemReminder(response.data.items);
       } catch (error) {
         console.error("사용자 아이템 가져오기 오류:", error);
       }
@@ -117,6 +120,7 @@ export default function CalendarPage() {
 
   return (
     <Wrapper>
+      <Reminder itemReminder={itemReminder} />
       <Container>
         <ButtonContainer>
           <PreviousBtn onClick={handlePrevMonth}/>
