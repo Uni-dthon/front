@@ -13,29 +13,24 @@ const dummy = [
 
 export default function Dashboard() {
   const [isVisible, setIsVisible] = useState(false);
-  const [addVisible, setAddVisible] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleClick = () => {
     setIsVisible(!isVisible);
   };
 
-  const handleAdd = (id) => {
-    setAddVisible((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const handleAdd = () => {
+    setModalVisible(!modalVisible);
   };
 
 
   return (
     <div>
       <DropdownMenu/>
-      {addVisible && <Modal/>}
+      {modalVisible && <Modal/>}
       <ItemContainer>
-        {dummy.map((item, idx) => {
-          return <ItemBox key={item.id} id={item.id} name={item.name} price={item.price} count={item.count}
-                          handleAdd={handleAdd}
-                          addVisible={addVisible}/>
+        {dummy.map((item) => {
+          return <ItemBox key={item.id} name={item.name} price={item.price} count={item.count} setModalVisible={setModalVisible}/>
         })}
       </ItemContainer>
       <Upload>
