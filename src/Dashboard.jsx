@@ -34,8 +34,8 @@ export default function Dashboard() {
       <ItemContainer>
         {dummy.map((item, idx) => {
           return <ItemBox key={item.id} id={item.id} name={item.name} price={item.price} count={item.count}
-                          handleAdd={handleAdd}
-                          addVisible={addVisible}/>
+            handleAdd={handleAdd}
+            addVisible={addVisible}/>
         })}
       </ItemContainer>
       <Upload>
