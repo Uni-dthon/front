@@ -3,6 +3,7 @@ import ItemBox from "./components/ItemBox.jsx";
 import styled from "styled-components";
 import UploadBtn from "./components/UploadBtn.jsx";
 import {useState} from "react";
+import BottomNav from "./BottomNav.jsx";
 
 const dummy = [
   {id: "0", name: "휴지", price: "1000", count: 1},
@@ -30,12 +31,14 @@ export default function Dashboard() {
       {modalVisible && <Modal/>}
       <ItemContainer>
         {dummy.map((item) => {
-          return <ItemBox key={item.id} name={item.name} price={item.price} count={item.count} setModalVisible={setModalVisible}/>
+          return <ItemBox key={item.id} name={item.name} price={item.price} count={item.count}
+                          setModalVisible={setModalVisible}/>
         })}
       </ItemContainer>
       <Upload>
         <UploadBtn handleClick={handleClick} isVisible={isVisible}/>
       </Upload>
+      <BottomNav toggle={false}/>
     </div>
   )
 }
@@ -61,6 +64,6 @@ const ItemContainer = styled.div`
 
 const Upload = styled.div`
     position: fixed;
-    bottom: 10px;
+    bottom: 110px;
     right: 20px;
 `
