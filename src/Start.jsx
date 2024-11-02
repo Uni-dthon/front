@@ -43,6 +43,7 @@ const Info = styled.div`
 
 const Text = styled.p`
     font-size: 23px;
+    font-weight: 800;
     font-family: Pretendard-SemiBold;
     line-height: 1.3;
     text-align: center;
