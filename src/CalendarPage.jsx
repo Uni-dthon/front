@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import calendarBag from './images/calendarBag.svg';
 import previousBtn from './images/previousBtn.svg';
@@ -13,6 +13,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     padding-top: 20px;
+    align-items: center;
 `;
 
 const Container = styled.div`
@@ -138,30 +139,11 @@ const MoneyText = styled.div`
     display: flex;
 `;
 
-const DateListContainer = styled.div`
-    width: 350px;
-    height: 30px;
-    background-color: var(--darkgrey-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-`;
-
-const ListText = styled.div`
-    color: var(--lightgrey-color);
-`;
-
-const ExpendDdayText = styled.div`
-    color: var(--lightgrey-color);
-`;
-
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [ItemSelect, setItemSelect] = useState([]);
-  const [Dday, setDdaySelect] = useState();
+  const [itemSelect, setItemSelect] = useState(null);
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
-
 
   const [data, setData] = useState([]);
 
@@ -242,27 +224,7 @@ export default function CalendarPage() {
     const dateString = returnStringDate(date); // date를 문자열로 변환
     const items = data.find(item => item.date === dateString); // 해당 날짜의 물품 리스트를 찾음
     setItemSelect(items);
-    setDdaySelect(calculateDDay(dateString));
-  };
-
-  const calculateDDay = (targetDate) => {
-    const today = new Date(); // 현재 날짜
-    const target = new Date(targetDate); // 목표 날짜
-
-    // 날짜 차이를 밀리초로 계산
-    const differenceInTime = target - today;
-
-    // 밀리초를 일수로 변환
-    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
-
-    // D-day 형식으로 반환
-    if (differenceInDays > 0) {
-      return `D+${differenceInDays}`; // 미래의 날짜
-    } else if (differenceInDays < 0) {
-      return `D-${differenceInDays}`; // 과거의 날짜
-    } else {
-      return "D-day"; // 오늘이 D-day
-    }
+    console.log(items);
   };
 
   return (
@@ -305,14 +267,8 @@ export default function CalendarPage() {
         <MoneyText><TomatoText>120,500</TomatoText>원</MoneyText>
       </ThisMonthExpend>
 
-      <DateListContainer>
-        <ListText>{ItemSelect.date}</ListText>
-        <ListText>예상 구매 물품</ListText>
-        <ExpendDdayText>{Dday}</ExpendDdayText>
-      </DateListContainer>
-      <ExtendList/>
+      { itemSelect && <ExtendList itemSelect={itemSelect}/>}
       <BottomNav toggle={true}/>
     </Wrapper>
-)
-  ;
+  );
 }
