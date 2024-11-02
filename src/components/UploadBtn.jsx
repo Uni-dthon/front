@@ -28,26 +28,21 @@ export default function UploadBtn({handleClick, isVisible, setIsVisible}) {
     }
 
     setIsLoading(true);
+    const formData = new FormData();
+    formData.append('image', selectedFile); // 선택한 파일을 FormData에 추가
 
     try {
-      // Create a FormData object and append the file to it
-      const formData = new FormData();
-      formData.append("file", selectedFile); // 'file' should match the field expected by the backend
-
-      // Make the POST request with axios
       const response = await axios.post("http://13.125.121.218:8080/ocr", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      console.log("File uploaded successfully:", response.data);
-      // Handle successful response here, like navigating to a different page
-      setIsVisible(false);
+      console.log("File uploaded:", response.data); // 응답 데이터 출력
     } catch (error) {
-      console.error("Error uploading file:", error);
+      console.error("Error uploading file:", error); // 오류 출력
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // 로딩 상태 종료
     }
   };
 
@@ -116,18 +111,16 @@ export default function UploadBtn({handleClick, isVisible, setIsVisible}) {
 
     // Set selectedFile to use in postReceipt
     setSelectedFile(photoFile);
-    postReceipt();
+    postReceipt(photoFile);
   };
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    setSelectedFile(event.target.files[0]); // 파일 선택 시 상태 업데이트
   };
 
   const handleFileUpload = () => {
     if (selectedFile) {
-      // 파일 업로드 처리 로직을 여기에 추가
-      console.log("파일 업로드:", selectedFile);
-      postReceipt();
+      postReceipt(); // 파일 업로드 요청
       closeModal(); // 모달 닫기
     }
   };
