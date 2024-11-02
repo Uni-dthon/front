@@ -25,7 +25,7 @@ const ItemInput = styled.input`
     }
 `;
 
-export default function ReceiptAdd({ item, onAdd, onChange, onAdd, index }) {
+export default function ReceiptAdd({ item, onAdd, onChange, index }) {
     const [title, setTitle] = useState(item.title);
     const [cost, setCost] = useState(item.cost);
     const [count, setCount] = useState(item.count);

@@ -78,7 +78,7 @@ export default function Receipt() {
         });
     };
 
-    const handleAdd = () => {
+    const AddBtn = () => {
         console.log(items); // 현재 items 배열을 콘솔에 출력
     };
 
@@ -102,7 +102,7 @@ export default function Receipt() {
             </ItemContainer>
             
             <ButtonContainer>
-                <AddButton onClick={handleAdd}>추가</AddButton>
+                <AddButton onClick={AddBtn}>추가</AddButton>
                 <AddButton disabled={true}>취소</AddButton>
             </ButtonContainer>
         </Wrapper>

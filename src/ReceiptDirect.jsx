@@ -68,7 +68,6 @@ export default function ReceiptDirect() {
 
     const handleAdd = () => {
         setItems(prevItems => [...prevItems, { title: '', cost: '', count: '' }]); // 새로운 비어있는 항목 추가
-        console.log(items);
     };
 
     const handleChange = (index, field, value) => {
@@ -78,6 +77,10 @@ export default function ReceiptDirect() {
             return newItems;
         });
     };
+
+    const AddBtn = () => {
+        console.log(items);
+    }
 
     return (
         <Wrapper>
@@ -99,7 +102,7 @@ export default function ReceiptDirect() {
             </ItemContainer>
 
             <ButtonContainer>
-                <AddButton onClick={handleAdd}>추가</AddButton>
+                <AddButton onClick={AddBtn}>추가</AddButton>
                 <AddButton disabled={true}>취소</AddButton>
             </ButtonContainer>
         </Wrapper>
