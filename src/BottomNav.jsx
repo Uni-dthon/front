@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import calendIcon from './images/calendarIcon.svg'
 import dashIcon from './images/dashboardIcon.svg'
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 const Wrapper = styled.div`
