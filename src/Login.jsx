@@ -1,16 +1,36 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Logo from "./images/logo.svg";
+import axios from "axios";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const loginBtn = () => {
-    console.log("Email: ", email);
-    console.log("Password: ", password);
-  }
+    axios.post("http://3.38.23.48:8000/login/signin", {
+      name: email,
+      password: password
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          const {user_id} = res.data;
+          console.log("로그인 성공:", user_id);
+          localStorage.setItem("user_id", user_id);
+          navigate("/calendar");
+        } else if (res.status === 204) {
+          console.log("유저 없음");
+        } else {
+          console.log("로그인 실패:", res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log("오류 발생:", err.response.data || err.message);
+      });
+  };
+
 
   return (
     <Container>
