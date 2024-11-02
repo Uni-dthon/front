@@ -1,4 +1,5 @@
 import styled, {keyframes} from "styled-components";
+import {useNavigate} from "react-router-dom";
 import upload from "../images/upload.svg";
 import add from "../images/add.svg";
 import camera from "../images/camera.svg";
@@ -6,12 +7,18 @@ import uploadBtn from "../images/uploadbtn.svg";
 
 export default function UploadBtn({handleClick, isVisible}) {
 
+  const navigate = useNavigate();
+
+  const goToReceiptDirect = async () => {
+    navigate("/receiptdirect");
+  };
+
   return (
     <Container>
       <ElementsContainer>
         {isVisible && (
           <>
-            <Element>
+            <Element onClick={goToReceiptDirect}>
               <ChildContainer>
                 <div>직접 추가</div>
                 <img src={add} alt="add"/>
@@ -19,7 +26,7 @@ export default function UploadBtn({handleClick, isVisible}) {
             </Element>
             <Element>
               <ChildContainer>
-                <div>영수증 촬영</div>
+                <div >영수증 촬영</div>
                 <img src={camera} alt="add"/>
               </ChildContainer>
             </Element>
