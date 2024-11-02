@@ -1,8 +1,18 @@
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import GlobalStyles from "./globalStyles.jsx";
+import Start from "./Start.jsx";
+import styled from "styled-components";
+
 function App() {
 
   return (
     <>
-      <h1>hello</h1>
+      <GlobalStyles/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Start/>}/>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
