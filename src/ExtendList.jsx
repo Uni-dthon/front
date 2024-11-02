@@ -14,20 +14,20 @@ const ItemList = styled.div`
 `;
 
 const DateListContainer = styled.div`
-    width: 350px;
-    height: 30px;
-    background-color: var(--darkgrey-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  width: 350px;
+  height: 30px;
+  background-color: var(--darkgrey-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 `;
 
 const ListText = styled.div`
-    color: var(--lightgrey-color);
+  color: var(--lightgrey-color);
 `;
 
 const ExpendDdayText = styled.div`
-    color: var(--lightgrey-color);
+  color: var(--lightgrey-color);
 `;
 
 export default function ExtendList({ itemSelect }) {
@@ -38,26 +38,27 @@ export default function ExtendList({ itemSelect }) {
     const target = new Date(targetDate);
 
     const differenceInTime = target - today;
-    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24)) - 1;
 
     if (differenceInDays > 0) {
       return `D-${differenceInDays}`;
     } else if (differenceInDays < 0) {
-      return `D+${differenceInDays}`;
+      return `D+${Math.abs(differenceInDays)}`;
     } else {
       return "D-day";
     }
   };
 
   useEffect(() => {
+
     if (itemSelect && itemSelect.date) {
       const dday = calculateDDay(itemSelect.date);
       setDdaySelect(dday);
     }
   }, [itemSelect]);
 
-  // itemSelect가 유효하지 않으면 빈 div를 리턴
-  if (!itemSelect) return null;
+  // itemSelect가 유효하지 않거나 리스트가 비어있으면 null 리턴
+  if (!itemSelect || itemSelect.list.length === 0) return null;
 
   return (
     <>
