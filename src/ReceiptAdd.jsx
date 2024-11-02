@@ -18,6 +18,10 @@ const ItemTitle = styled.input`
     outline: none;
     border-radius: 10px;
     padding: 3px;
+    &:focus{
+      border: none;
+      outline: none;
+    }
 `
 
 const InputContainer = styled.input`
@@ -29,6 +33,10 @@ const InputContainer = styled.input`
     border: none;
     border-radius: 10px;
     padding: 3px;
+    &:focus{
+      border: none;
+      outline: none;
+    }
 `
 
 export default function ReceiptAdd() {

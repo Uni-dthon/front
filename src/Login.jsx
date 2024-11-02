@@ -78,6 +78,10 @@ const Form = styled.div`
 const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
+    &:focus{
+      border: none;
+      outline: none;
+    }
 `;
 
 const InputTitle = styled.label`
