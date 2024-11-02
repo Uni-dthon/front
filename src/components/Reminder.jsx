@@ -49,6 +49,15 @@ const ItemInfo = styled.div`
 export default function Reminder({ itemReminder }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // 3초마다 currentIndex 변경
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % itemReminder.length);
+    }, 3000); // 3초
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
+  }, [itemReminder.length]);
+
   const calculateDDay = (targetDate) => {
     const today = new Date();
     const target = new Date(targetDate);
@@ -73,15 +82,6 @@ export default function Reminder({ itemReminder }) {
   // itemReminder가 유효하지 않거나 리스트가 비어있으면 null 리턴
   if (!Array.isArray(itemReminder) || itemReminder.length === 0) return null;
 
-  // 3초마다 currentIndex 변경
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % itemReminder.length);
-    }, 3000); // 3초
-
-    return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
-  }, [itemReminder.length]);
-
   return (
     <ReminderContainer>
       <ItemList key={currentIndex}>
@@ -98,6 +98,6 @@ Reminder.propTypes = {
   itemReminder: PropTypes.arrayOf(PropTypes.shape({
     item_name: PropTypes.string.isRequired,
     count: PropTypes.number.isRequired,
-    target_date: PropTypes.string.isRequired, // D-day 계산을 위한 예상 구매일
+    consume_date: PropTypes.string.isRequired, // D-day 계산을 위한 예상 구매일
   })).isRequired,
 };
