@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {useState} from "react";
 
-export default function ItemBox({name, price, count, setModalVisible}) {
+export default function ItemBox({name, price, count, setModalVisible, consume, addone}) {
   const [addVisible, setAddVisible] = useState(false);
   const [countNum, setCountNum] = useState(count);
 
@@ -13,6 +13,7 @@ export default function ItemBox({name, price, count, setModalVisible}) {
   const handleUseClick = () => {
     setAddVisible(false);
     setModalVisible(false);
+    consume(name);
     setCountNum(countNum - 1);
   };
 
@@ -33,7 +34,7 @@ export default function ItemBox({name, price, count, setModalVisible}) {
             <Count>현재 : {countNum}개</Count>
           </div>
           <div style={{display: "flex", gap: "10px", justifyContent: "flex-end"}}>
-            <UseBtn onClick={handleUseClick}>사용</UseBtn>
+            <UseBtn onClick={(name) => handleUseClick(name)}>사용</UseBtn>
             <CancelBtn onClick={handleClose}>취소</CancelBtn>
           </div>
         </AddContainer>
@@ -46,7 +47,10 @@ export default function ItemBox({name, price, count, setModalVisible}) {
         </div>
         <div>{countNum}</div>
       </Container>
-      <AddBtn onClick={() => setCountNum(countNum + 1)}>추가</AddBtn>
+      <AddBtn onClick={(name, price) => {
+        setCountNum(countNum + 1);
+        addone(name, price);
+      }}>추가</AddBtn>
       <DelBtn onClick={handleOpenClick}>사용</DelBtn>
     </div>
   );
