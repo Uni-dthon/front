@@ -2,7 +2,7 @@ import styled, {keyframes} from "styled-components";
 import upload from "../images/upload.svg";
 import add from "../images/add.svg";
 import camera from "../images/camera.svg";
-import uploadBtn from "../images/uploadBtn.svg";
+import uploadBtn from "../images/uploadbtn.svg";
 
 export default function UploadBtn({handleClick, isVisible}) {
 
