@@ -16,6 +16,10 @@ export default function ExtendList() {
       <ItemList>휴지</ItemList>
       <ItemList>샴푸</ItemList>
       <ItemList>클렌징폼</ItemList>
+      <ItemList>세제</ItemList>
+      <ItemList>휴지</ItemList>
+      <ItemList>샴푸</ItemList>
+      <ItemList>클렌징폼</ItemList>
     </ItemContainer>
   )
 
