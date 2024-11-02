@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Onboarding from './images/onboarding.svg';
+import {Link} from "react-router-dom";
 
 
 export default function Start() {
@@ -8,8 +9,8 @@ export default function Start() {
     <Container>
       <Info>
         <Text>
-          메인 화면에서 <br/>
-          볼 수 있는 <HighlightText>안전 구역</HighlightText>
+          바쁜 일상 속 <br/>
+          고민 거리 줄여주는 <HighlightText>미리사</HighlightText>
         </Text>
         <ImageContainer>
           <img src={Onboarding} width={166} height={448} alt="Onboarding"/>
@@ -17,7 +18,9 @@ export default function Start() {
       </Info>
 
       <Footer>
-        <StartText>시작하기</StartText>
+        <Link to={"/login"} style={{textDecoration: "none"}}>
+          <StartText>시작하기</StartText>
+        </Link>
       </Footer>
     </Container>
   );
@@ -28,9 +31,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
-    padding-top: 120px;
-    height: 100vh;
+    padding-top: 100px;
 `;
 
 const Info = styled.div`
@@ -42,13 +43,16 @@ const Info = styled.div`
 
 const Text = styled.p`
     font-size: 23px;
-    font-weight: 600;
+    font-family: Pretendard-SemiBold;
     line-height: 1.3;
     text-align: center;
+    color: white;
 `;
 
 const HighlightText = styled.span`
     color: var(--red-color);
+    font-family: Pretendard-Black;
+    font-size: 25px;
 `;
 
 const ImageContainer = styled.div`
@@ -58,15 +62,15 @@ const ImageContainer = styled.div`
 `;
 
 const Footer = styled.div`
-    width: 100%;
-    height: 100px;
+    background-color: var(--red-color);
+    width: 335px;
+    height: 61px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 -5px 6px rgba(75, 0, 130, 0.3);
-    position: fixed;
-    bottom: 0;
     cursor: pointer;
+    margin-top: 30px;
+    border-radius: 2vh;
 `;
 
 const StartText = styled.p`
