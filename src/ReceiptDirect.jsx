@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import ReceiptDelete from './components/ReceiptDelete';
+import ReceiptAdd from './components/ReceiptAdd';
 
 const Wrapper = styled.div`
     height: 490px;
@@ -60,14 +60,15 @@ const AddButton = styled.button`
     }
 `;
 
-export default function Receipt() {
+export default function ReceiptDirect() {
     const [items, setItems] = useState([
         { title: '비누', cost: '2000원', count: '3개' },
         { title: '샴푸', cost: '8000원', count: '3개' }
     ]);
 
-    const handleDelete = (index) => {
-        setItems(prevItems => prevItems.filter((_, i) => i !== index));
+    const handleAdd = () => {
+        setItems(prevItems => [...prevItems, { title: '', cost: '', count: '' }]); // 새로운 비어있는 항목 추가
+        console.log(items);
     };
 
     const handleChange = (index, field, value) => {
@@ -76,10 +77,6 @@ export default function Receipt() {
             newItems[index] = { ...newItems[index], [field]: value };
             return newItems;
         });
-    };
-
-    const handleAdd = () => {
-        console.log(items); // 현재 items 배열을 콘솔에 출력
     };
 
     return (
@@ -91,16 +88,16 @@ export default function Receipt() {
 
             <ItemContainer>
                 {items.map((item, index) => (
-									<div key={index}>
-											<ReceiptDelete 
-													item={item} 
-													onDelete={() => handleDelete(index)} 
-													onChange={(field, value) => handleChange(index, field, value)} // onChange 핸들러 추가
-											/>
-									</div>
+                    <ReceiptAdd
+                        key={index}
+                        item={item}
+                        onAdd={() => handleAdd()}
+                        onChange={handleChange}
+                        index={index}
+                    />
                 ))}
             </ItemContainer>
-            
+
             <ButtonContainer>
                 <AddButton onClick={handleAdd}>추가</AddButton>
                 <AddButton disabled={true}>취소</AddButton>

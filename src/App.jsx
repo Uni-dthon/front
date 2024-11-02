@@ -4,6 +4,7 @@ import Login from "./Login.jsx";
 import Dashboard from "./Dashboard.jsx";
 import CalendarPage from "./CalendarPage.jsx";
 import Receipt from  "./Receipt.jsx";
+import ReceiptDirect from "./ReceiptDirect.jsx";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/receipt" element={<Receipt />} />
+          <Route path="/receiptdirect" element={<ReceiptDirect />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -41,9 +41,9 @@ export default function ExtendList({ itemSelect }) {
     const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
 
     if (differenceInDays > 0) {
-      return `D+${differenceInDays}`;
-    } else if (differenceInDays < 0) {
       return `D-${differenceInDays}`;
+    } else if (differenceInDays < 0) {
+      return `D+${differenceInDays}`;
     } else {
       return "D-day";
     }
