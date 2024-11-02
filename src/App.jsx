@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import GlobalStyles from "./globalStyles.jsx";
+import GlobalStyles from "./GlobalStyles.jsx";
 import Start from "./Start.jsx";
-import styled from "styled-components";
+import CalendarPage from "./CalendarPage.jsx";
 
 function App() {
 
@@ -11,6 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Start/>}/>
+          <Route path="/calendar" element={<CalendarPage />} />
         </Routes>
       </BrowserRouter>
     </>
