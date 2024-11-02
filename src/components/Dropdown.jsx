@@ -2,7 +2,7 @@ import {useState} from "react";
 import styled from "styled-components";
 import dropdown from "../images/dropdown.svg";
 
-export default function DropdownMenu() {
+export default function DropdownMenu({setCategory}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("전체");
 
@@ -14,6 +14,7 @@ export default function DropdownMenu() {
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
+    setCategory(option);
     setIsOpen(false);
   };
 

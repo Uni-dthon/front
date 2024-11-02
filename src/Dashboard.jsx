@@ -2,19 +2,15 @@ import DropdownMenu from "./components/Dropdown.jsx";
 import ItemBox from "./components/ItemBox.jsx";
 import styled from "styled-components";
 import UploadBtn from "./components/UploadBtn.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import BottomNav from "./BottomNav.jsx";
-
-const dummy = [
-  {id: "0", name: "휴지", price: "1000", count: 1},
-  {id: "1", name: "세제", price: "3500", count: 33},
-  {id: "2", name: "휴지", price: "1000", count: 1},
-  {id: "3", name: "휴지", price: "1000", count: 1},
-]
+import axios from "axios";
 
 export default function Dashboard() {
   const [isVisible, setIsVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [category, setCategory] = useState("전체");
+  const [items, setItems] = useState([]);
 
   const handleClick = () => {
     setIsVisible(!isVisible);
@@ -24,19 +20,65 @@ export default function Dashboard() {
     setModalVisible(!modalVisible);
   };
 
+  useEffect(() => {
+    const id = localStorage.getItem("user_id");
+    axios.get(`http://3.38.23.48:8000/items/${id}?category=${category}`)
+      .then((res) => {
+        const data = res.data.items;
+        console.log(data);
+        setItems(data);
+      })
+      .catch((err) => {
+        console.log("오류 발생:", err.response.data || err.message);
+      });
+  }, [category]);
+
+  const consume = (name) => {
+    const id = localStorage.getItem("user_id");
+    axios.post("http://3.38.23.48:8000/items/consume", {
+      user_id: id,
+      item_name: name,
+      consume_count: 1,
+      consume_date: "2024-11-03"
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log("오류 발생:", err.response.data || err.message);
+      });
+  }
+
+  const addone = (name, price) => {
+    const id = localStorage.getItem("user_id");
+    axios.post("http://3.38.23.48:8000/items/addone", {
+      user_id: id,
+      item_name: name,
+      count: 1,
+      price: price,
+      consume_date: "2024-11-03"
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log("오류 발생:", err.response || err.message);
+      });
+  }
+
 
   return (
     <div>
-      <DropdownMenu/>
+      <DropdownMenu setCategory={setCategory}/>
       {modalVisible && <Modal/>}
       <ItemContainer>
-        {dummy.map((item) => {
-          return <ItemBox key={item.id} name={item.name} price={item.price} count={item.count}
-                          setModalVisible={setModalVisible}/>
+        {items.map((item, idx) => {
+          return <ItemBox key={idx} name={item.item_name} price={item.price} count={item.count}
+                          setModalVisible={setModalVisible} consume={consume} addone={addone}/>
         })}
       </ItemContainer>
       <Upload>
-        <UploadBtn handleClick={handleClick} isVisible={isVisible}/>
+        <UploadBtn handleClick={handleClick} isVisible={isVisible} setIsVisible={setIsVisible}/>
       </Upload>
       <BottomNav toggle={false}/>
     </div>
