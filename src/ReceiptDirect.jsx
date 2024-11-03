@@ -4,6 +4,13 @@ import ReceiptAdd from './components/ReceiptAdd';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
+const Container = styled.div`
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    height: 100vh; /* 전체 화면 높이 */
+`
+
 const Wrapper = styled.div`
     height: 490px;
     background-color: var(--darkgrey-color);
@@ -126,6 +133,7 @@ export default function ReceiptDirect() {
   }
 
   return (
+    <Container>
     <Wrapper>
       <TextContainer>
         <TitleText>Receipt</TitleText>
@@ -151,5 +159,6 @@ export default function ReceiptDirect() {
         <CancelButton onClick={goback}>취소</CancelButton>
       </ButtonContainer>
     </Wrapper>
+    </Container>
   );
 }

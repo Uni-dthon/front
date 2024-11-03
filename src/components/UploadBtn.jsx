@@ -39,6 +39,7 @@ export default function UploadBtn({handleClick, isVisible, setIsVisible}) {
       });
 
       console.log("File uploaded:", response.data); // 응답 데이터 출력
+      navigate("/receipt", { state: { data: response.data }});
     } catch (error) {
       console.error("Error uploading file:", error); // 오류 출력
     } finally {
