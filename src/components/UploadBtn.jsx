@@ -4,7 +4,7 @@ import upload from "../images/upload.svg";
 import add from "../images/add.svg";
 import camera from "../images/camera.svg";
 import uploadBtn from "../images/uploadbtn.svg";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import axios from "axios";
 
@@ -43,6 +43,7 @@ export default function UploadBtn({handleClick, isVisible, setIsVisible}) {
       console.error("Error uploading file:", error); // 오류 출력
     } finally {
       setIsLoading(false); // 로딩 상태 종료
+      setIsVisible(false); // 업로드 버튼 숨기기
     }
   };
 
@@ -93,6 +94,12 @@ export default function UploadBtn({handleClick, isVisible, setIsVisible}) {
     return new File([u8arr], fileName, {type: mime});
   };
 
+  useEffect(() => {
+    if (selectedFile) {
+      postReceipt();
+    }
+  }, [selectedFile]);
+
   const takePhoto = () => {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
@@ -100,19 +107,16 @@ export default function UploadBtn({handleClick, isVisible, setIsVisible}) {
     canvas.height = videoRef.current.videoHeight;
     context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
     const photoData = canvas.toDataURL("image/png");
-    setPhoto(photoData);
+    console.log(photoData);
     setCameraModalIsOpen(false);
 
     // Convert the photo data URL to a File object
     const photoFile = dataURLtoFile(photoData, "receipt.png");
 
-    // Log the photo file or handle the upload
-    console.log("Captured photo file:", photoFile);
-
-    // Set selectedFile to use in postReceipt
+    // Set selectedFile to trigger the useEffect and postReceipt
     setSelectedFile(photoFile);
-    postReceipt(photoFile);
   };
+
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]); // 파일 선택 시 상태 업데이트
