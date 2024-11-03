@@ -41,13 +41,13 @@ const ItemCount = styled.input`
 export default function ReceiptDelete({ item, onDelete, onChange }) {
     return (
         <ReceiptDeleteContainer>
-            <ItemTitle>{item.title}</ItemTitle>
+            <ItemTitle>{item.item_name}</ItemTitle>
             <ItemCost 
-                defaultValue={item.cost} 
+                defaultValue={item.count} 
                 onBlur={(e) => onChange('cost', e.target.value)} // onBlur 이벤트로 값 저장
             />
             <ItemCount 
-                defaultValue={item.count} 
+                defaultValue={item.price} 
                 onBlur={(e) => onChange('count', e.target.value)} // onBlur 이벤트로 값 저장
             />
             <img src={deleteBtn} width={27} height={27} alt="deleteBtn" onClick={onDelete} />
@@ -58,8 +58,8 @@ export default function ReceiptDelete({ item, onDelete, onChange }) {
 // PropTypes 추가
 ReceiptDelete.propTypes = {
     item: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        cost: PropTypes.string.isRequired,
+        item_name: PropTypes.string.isRequired,
+        price: PropTypes.string.isRequired,
         count: PropTypes.string.isRequired,
     }).isRequired,
     onDelete: PropTypes.func.isRequired,
